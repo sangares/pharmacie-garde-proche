@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacie de Garde Proche</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .pharmacy-card {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>💊 Pharmacie de Garde</h1>
+        <p>Trouvez rapidement une pharmacie ouverte près de chez vous</p>
+    </header>
+
+    <div class="container">
+        <h3>Rechercher une pharmacie</h3>
+        <p>Cliquez sur le bouton ci-dessous pour afficher les pharmacies de garde disponibles :</p>
+        <button onclick="trouverPharmacie()">🔍 Trouver une pharmacie</button>
+        
+        <div id="resultat"></div>
+    </div>
+
+    <script>
+        function trouverPharmacie() {
+            const resultatDiv = document.getElementById('resultat');
+            resultatDiv.innerHTML = `
+                <div class="pharmacy-card">
+                    <h4>Pharmacie de la Gare</h4>
+                    <p>📍 Adresse : 12 Avenue Principale</p>
+                    <p>📞 Téléphone : 01 23 45 67 89</p>
+                    <p>🟢 Statut : <strong>Ouverte de garde</strong></p>
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
