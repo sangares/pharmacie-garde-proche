@@ -33,6 +33,15 @@
             width: 100%;
             max-width: 600px;
         }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
         button {
             background-color: #28a745;
             color: white;
@@ -42,7 +51,7 @@
             cursor: pointer;
             font-size: 16px;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         button:hover {
             background-color: #218838;
@@ -53,34 +62,83 @@
             border-radius: 5px;
             margin-top: 15px;
         }
+        .loading {
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>💊 Pharmacie de Garde</h1>
-        <p>Trouvez rapidement une pharmacie ouverte près de chez vous</p>
+        <p>Trouvez les pharmacies autour d'une ville</p>
     </header>
 
     <div class="container">
-        <h3>Rechercher une pharmacie</h3>
-        <p>Cliquez sur le bouton ci-dessous pour afficher les pharmacies de garde disponibles :</p>
-        <button onclick="trouverPharmacie()">🔍 Trouver une pharmacie</button>
+        <h3>Rechercher par ville</h3>
+        <input type="text" id="villeInput" placeholder="Ex: Paris, Lyon, Marseille...">
+        <button onclick="rechercherPharmacies()">🔍 Rechercher les pharmacies</button>
         
         <div id="resultat"></div>
     </div>
 
     <script>
-        function trouverPharmacie() {
+        async function rechercherPharmacies() {
+            const ville = document.getElementById('villeInput').value.trim();
             const resultatDiv = document.getElementById('resultat');
-            resultatDiv.innerHTML = `
-                <div class="pharmacy-card">
-                    <h4>Pharmacie de la Gare</h4>
-                    <p>📍 Adresse : 12 Avenue Principale</p>
-                    <p>📞 Téléphone : 01 23 45 67 89</p>
-                    <p>🟢 Statut : <strong>Ouverte de garde</strong></p>
-                </div>
-            `;
+
+            if (!ville) {
+                resultatDiv.innerHTML = '<p style="color: red; margin-top: 15px;">Veuillez entrer le nom d\'une ville.</p>';
+                return;
+            }
+
+            resultatDiv.innerHTML = '<div class="loading">Recherche des pharmacies en cours...</div>';
+
+            try {
+                // 1. Trouver les coordonnées GPS de la ville saisie
+                const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(ville + ', France')}`);
+                const geoData = await geoResponse.json();
+
+                if (geoData.length === 0) {
+                    resultatDiv.innerHTML = '<p style="color: red; margin-top: 15px;">Ville introuvable. Essayez à nouveau.</p>';
+                    return;
+                }
+
+                const lat = geoData[0].lat;
+                const lon = geoData[0].lon;
+
+                // 2. Chercher les pharmacies autour de ces coordonnées (dans un rayon d'environ 5 km)
+                const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node[amenity=pharmacy](around:5000,${lat},${lon});out;`;
+                const pharmaResponse = await fetch(overpassUrl);
+                const pharmaData = await pharmaResponse.json();
+
+                if (pharmaData.elements.length === 0) {
+                    resultatDiv.innerHTML = '<p style="margin-top: 15px;">Aucune pharmacie trouvée à proximité de cette ville.</p>';
+                    return;
+                }
+
+                // 3. Afficher la liste des pharmacies trouvées
+                let html = '<h4 style="margin-top: 20px;">Pharmacies trouvées :</h4>';
+                pharmaData.elements.slice(f => f.tags && f.tags.name).slice(0, 5).forEach(pharmacie => {
+                    const nom = pharmacie.tags.name || "Pharmacie";
+                    const rue = pharmacie.tags['addr:street'] ? pharmacie.tags['addr:street'] : "Adresse non précisée";
+                    html += `
+                        <div class="pharmacy-card">
+                            <h4>🏥 ${nom}</h4>
+                            <p>📍 Rue : ${rue}</p>
+                            <p>🟢 Ouverte (vérifiez les horaires de garde locaux)</p>
+                        </div>
+                    `;
+                });
+
+                resultatDiv.innerHTML = html;
+
+            } catch (error) {
+                resultatDiv.innerHTML = '<p style="color: red; margin-top: 15px;">Une erreur est survenue lors de la recherche.</p>';
+            }
         }
     </script>
 
