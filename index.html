@@ -79,7 +79,7 @@
 
     <div class="container">
         <h3>Rechercher par ville</h3>
-        <input type="text" id="villeInput" placeholder="Ex: Paris, Lyon, Marseille...">
+        <input type="text" id="villeInput" placeholder="Ex: Saint-Ouen-l'Aumône, Paris...">
         <button onclick="rechercherPharmacies()">🔍 Rechercher les pharmacies</button>
         
         <div id="resultat"></div>
@@ -98,7 +98,6 @@
             resultatDiv.innerHTML = '<div class="loading">Recherche des pharmacies en cours...</div>';
 
             try {
-                // 1. Trouver les coordonnées GPS de la ville saisie
                 const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(ville + ', France')}`);
                 const geoData = await geoResponse.json();
 
@@ -110,7 +109,6 @@
                 const lat = geoData[0].lat;
                 const lon = geoData[0].lon;
 
-                // 2. Chercher les pharmacies autour de ces coordonnées (dans un rayon d'environ 5 km)
                 const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node[amenity=pharmacy](around:5000,${lat},${lon});out;`;
                 const pharmaResponse = await fetch(overpassUrl);
                 const pharmaData = await pharmaResponse.json();
@@ -120,10 +118,9 @@
                     return;
                 }
 
-                // 3. Afficher la liste des pharmacies trouvées
                 let html = '<h4 style="margin-top: 20px;">Pharmacies trouvées :</h4>';
-                pharmaData.elements.slice(f => f.tags && f.tags.name).slice(0, 5).forEach(pharmacie => {
-                    const nom = pharmacie.tags.name || "Pharmacie";
+                pharmaData.elements.filter(f => f.tags && f.tags.name).slice(0, 5).forEach(pharmacie => {
+                    const nom = pharmacie.tags.name;
                     const rue = pharmacie.tags['addr:street'] ? pharmacie.tags['addr:street'] : "Adresse non précisée";
                     html += `
                         <div class="pharmacy-card">
