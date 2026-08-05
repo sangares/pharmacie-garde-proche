@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacie de Garde Proche</title>
+    <title>Pharmacie de Garde Proche & Conseils Santé</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,6 +32,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 600px;
+            margin-bottom: 20px;
         }
         input {
             width: 100%;
@@ -62,13 +63,31 @@
             border-radius: 5px;
             margin-top: 15px;
         }
+        .conseils-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .conseils-section h3 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 8px;
+        }
+        .conseils-section h4 {
+            margin-top: 15px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>💊 Pharmacie de Garde</h1>
-        <p>Trouvez rapidement une pharmacie ouverte</p>
+        <h1>💊 Pharmacie de Garde & Santé</h1>
+        <p>Trouvez rapidement une pharmacie ouverte et nos conseils</p>
     </header>
 
     <div class="container">
@@ -77,6 +96,19 @@
         <button onclick="rechercherPharmacies()">🔍 Trouver les pharmacies</button>
         
         <div id="resultat"></div>
+    </div>
+
+    <div class="conseils-section">
+        <h3>📖 Conseils Santé et Urgences</h3>
+        
+        <h4>1. Que faut-il apporter à la pharmacie de garde ?</h4>
+        <p>Pour récupérer des médicaments de garde, pensez à vous munir impérativement de votre <strong>carte Vitale</strong>, de votre <strong>carte de mutuelle</strong> ainsi que de votre <strong>ordonnance médicale</strong> (s'il s'agit de médicaments délivrés sur prescription).</p>
+
+        <h4>2. Comment obtenir une ordonnance la nuit ou un dimanche ?</h4>
+        <p>En dehors des horaires habituels d'ouverture des cabinets médicaux, si votre situation nécessite une consultation urgente, vous devez contacter le <strong>15 (SAMU)</strong> ou le <strong>116 117</strong> (permanence des soins médicaux) avant de vous rendre dans une pharmacie de garde.</p>
+
+        <h4>3. Les bons réflexes en cas de petit souci de santé</h4>
+        <p>En cas de fièvre modérée ou de petits maux du quotidien, les pharmaciens sont des professionnels de santé qualifiés. N'hésitez pas à leur demander conseil directement sur place pour un premier accompagnement en attendant un avis médical.</p>
     </div>
 
     <script>
@@ -89,7 +121,6 @@
                 return;
             }
 
-            // Affichage direct d'un résultat propre et interactif pour la ville demandée
             resultatDiv.innerHTML = `
                 <div class="pharmacy-card">
                     <h4>🏥 Pharmacies à ${ville}</h4>
@@ -104,6 +135,9 @@
             `;
         }
     </script>
+
+</body>
+</html>
 
 </body>
 </html>
