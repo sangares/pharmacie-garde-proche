@@ -3,43 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacie de Garde Proche & Conseils Santé</title>
+    <title>Pharmacie de Garde & Conseils Santé - Europe</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
             color: #333;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         header {
-            background-color: #007bff;
+            background: linear-gradient(135deg, #0066cc, #004080);
             color: white;
-            padding: 20px;
+            padding: 25px 15px;
             width: 100%;
             max-width: 600px;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .container {
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+        header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .card {
             background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             width: 100%;
             max-width: 600px;
             margin-bottom: 20px;
+            box-sizing: border-box;
         }
         input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
             box-sizing: border-box;
             font-size: 16px;
         }
@@ -47,39 +58,59 @@
             background-color: #28a745;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 12px 15px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
             width: 100%;
-            margin-top: 5px;
+            font-weight: bold;
         }
         button:hover {
             background-color: #218838;
         }
-        .pharmacy-card {
-            background: #e9ecef;
+        .pharmacy-result {
+            background: #e8f4fd;
+            border-left: 4px solid #0066cc;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 6px;
             margin-top: 15px;
         }
-        .conseils-section {
-            background: #fff;
-            padding: 20px;
+        .affiliation-box {
+            background: #fff8e1;
+            border: 1px dashed #ffc107;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 20px;
             width: 100%;
             max-width: 600px;
-            line-height: 1.6;
+            box-sizing: border-box;
+        }
+        .affiliation-box a {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+        .affiliation-box a:hover {
+            background-color: #f57c00;
         }
         .conseils-section h3 {
-            color: #007bff;
-            border-bottom: 2px solid #007bff;
+            color: #0066cc;
+            border-bottom: 2px solid #e9ecef;
             padding-bottom: 8px;
         }
-        .conseils-section h4 {
-            margin-top: 15px;
-            color: #333;
+        footer {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            max-width: 600px;
+            margin-top: 10px;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -87,29 +118,44 @@
 
     <header>
         <h1>💊 Pharmacie de Garde & Santé</h1>
-        <p>Trouvez rapidement une pharmacie ouverte et nos conseils</p>
+        <p>Service européen d'orientation médicale et de proximité</p>
     </header>
 
-    <div class="container">
-        <h3>Rechercher par ville</h3>
+    <!-- Zone de Recherche -->
+    <div class="card">
+        <h3>🔍 Rechercher une pharmacie</h3>
         <input type="text" id="villeInput" placeholder="Ex: Saint-Ouen-l'Aumône, Paris...">
-        <button onclick="rechercherPharmacies()">🔍 Trouver les pharmacies</button>
+        <button onclick="rechercherPharmacies()">Trouver les pharmacies</button>
         
         <div id="resultat"></div>
     </div>
 
-    <div class="conseils-section">
-        <h3>📖 Conseils Santé et Urgences</h3>
-        
-        <h4>1. Que faut-il apporter à la pharmacie de garde ?</h4>
-        <p>Pour récupérer des médicaments de garde, pensez à vous munir impérativement de votre <strong>carte Vitale</strong>, de votre <strong>carte de mutuelle</strong> ainsi que de votre <strong>ordonnance médicale</strong> (s'il s'agit de médicaments délivrés sur prescription).</p>
-
-        <h4>2. Comment obtenir une ordonnance la nuit ou un dimanche ?</h4>
-        <p>En dehors des horaires habituels d'ouverture des cabinets médicaux, si votre situation nécessite une consultation urgente, vous devez contacter le <strong>15 (SAMU)</strong> ou le <strong>116 117</strong> (permanence des soins médicaux) avant de vous rendre dans une pharmacie de garde.</p>
-
-        <h4>3. Les bons réflexes en cas de petit souci de santé</h4>
-        <p>En cas de fièvre modérée ou de petits maux du quotidien, les pharmaciens sont des professionnels de santé qualifiés. N'hésitez pas à leur demander conseil directement sur place pour un premier accompagnement en attendant un avis médical.</p>
+    <!-- ENCART D'AFFILIATION (Remplacez le lien # par votre lien partenaire) -->
+    <div class="affiliation-box">
+        <h4>🛍️ Parapharmacie & Soins en ligne</h4>
+        <p style="font-size: 14px; margin: 5px 0;">Besoin de produits de santé, vitamines ou premiers secours livrés chez vous ?</p>
+        <!-- Remplacez https://votre-lien-dafiliation.com par votre vrai lien -->
+        <a href="https://votre-lien-dafiliation.com" target="_blank">Découvrir notre sélection santé</a>
     </div>
+
+    <!-- Conseils Santé -->
+    <div class="card conseils-section">
+        <h3>📖 Guide et Conseils Médicaux</h3>
+        
+        <h4>1. Documents obligatoires</h4>
+        <p>Pour tout achat de garde, munissez-vous de votre <strong>ordonnance du jour</strong>, de votre carte Vitale et de votre attestation de mutuelle.</p>
+
+        <h4>2. Urgences de nuit</h4>
+        <p>La nuit, présentez-vous d'abord au commissariat ou contactez le <strong>15 (SAMU)</strong> / <strong>116 117</strong> pour obtenir l'autorisation d'accéder à la pharmacie de garde sécurisée.</p>
+
+        <h4>3. Rôle du pharmacien</h4>
+        <p>Le pharmacien est votre premier interlocuteur de santé pour les petits soins du quotidien et l'orientation vers les bons professionnels.</p>
+    </div>
+
+    <footer>
+        <p><strong>Avertissement :</strong> Ce site est un service d'information indépendant. Les données de géolocalisation s'appuient sur les services cartographiques officiels.<br>
+        © 2026 Pharmacie de Garde Proche - Tous droits réservés | <a href="#" style="color: #666;">Mentions Légales</a> | <a href="#" style="color: #666;">Politique de confidentialité</a></p>
+    </footer>
 
     <script>
         function rechercherPharmacies() {
@@ -117,27 +163,23 @@
             const resultatDiv = document.getElementById('resultat');
 
             if (!ville) {
-                resultatDiv.innerHTML = '<p style="color: red; margin-top: 15px;">Veuillez entrer le nom d\'une ville.</p>';
+                resultatDiv.innerHTML = '<p style="color: #dc3545; margin-top: 15px; font-size: 14px;">Veuillez entrer le nom d\'une ville valide.</p>';
                 return;
             }
 
             resultatDiv.innerHTML = `
-                <div class="pharmacy-card">
-                    <h4>🏥 Pharmacies à ${ville}</h4>
-                    <p>📍 Zone : ${ville} et ses environs</p>
-                    <p>🟢 Service de garde actif</p>
+                <div class="pharmacy-result">
+                    <h4 style="margin: 0 0 8px 0; color: #0066cc;">🏥 Zone : ${ville}</h4>
+                    <p style="margin: 4px 0;">🟢 Service de garde actif</p>
                     <p style="margin-top: 10px;">
-                        <a href="https://www.google.com/maps/search/pharmacie+de+garde+${encodeURIComponent(ville)}" target="_blank" style="color: #007bff; font-weight: bold; text-decoration: none;">
-                            👉 Cliquer ici pour voir les pharmacies sur la carte Google Maps
+                        <a href="https://www.google.com/maps/search/pharmacie+de+garde+${encodeURIComponent(ville)}" target="_blank" style="color: #0066cc; font-weight: bold; text-decoration: underline;">
+                            👉 Afficher les pharmacies ouvertes sur la carte
                         </a>
                     </p>
                 </div>
             `;
         }
     </script>
-
-</body>
-</html>
 
 </body>
 </html>
